@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { HealthCheckModule } from './modules/health-check/health-check.module';
 import { ConfigModule } from '@nestjs/config';
-import configuration from './config/configuration';
 import Joi from 'joi';
+import configuration from './config/configuration';
+import { DbModule } from './db/db.module';
+import { HealthCheckModule } from './modules/health-check/health-check.module';
 
 @Module({
   imports: [
-    HealthCheckModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
@@ -15,6 +15,8 @@ import Joi from 'joi';
         DATABASE_URL: Joi.string().required(),
       }),
     }),
+    DbModule,
+    HealthCheckModule,
   ],
 })
 export class AppModule {}
