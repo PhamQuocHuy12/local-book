@@ -16,7 +16,6 @@ export class HealthCheckService {
   constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
   async check(): Promise<HealthCheckResponse> {
-    console.log('Health check initiated');
     return {
       app: { status: 'healthy' },
       database: await this.checkDatabase(),

@@ -31,6 +31,39 @@
 $ npm install
 ```
 
+## Local Docker
+
+Start the API and PostgreSQL locally with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The Compose stack starts two services:
+
+- `api`: NestJS backend, available at `http://localhost:3007`
+- `postgres`: PostgreSQL 16, available to the API inside Docker at host `postgres`
+
+PostgreSQL data is stored in the named Docker volume `postgres-data`, so database files persist across container restarts.
+
+To run in the background:
+
+```bash
+docker compose up --build -d
+```
+
+To verify the API and database connection:
+
+```bash
+curl http://localhost:3007/health
+```
+
+To stop the containers:
+
+```bash
+docker compose down
+```
+
 ## Compile and run the project
 
 ```bash

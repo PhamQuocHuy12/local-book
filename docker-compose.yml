@@ -1,5 +1,5 @@
 services:
-  local-book-backend:
+  api:
     command: npm run start:dev
     volumes:
       - .:/app
@@ -9,20 +9,23 @@ services:
       dockerfile: Dockerfile
     ports:
       - '${API_PORT:-3007}:3000'
-    env_file:
-      - .env
+    environment:
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://localbook:localbook@postgres:5432/localbook}
     depends_on:
-      local-book-db:
+      postgres:
         condition: service_healthy
 
-  local-book-db:
+  postgres:
     image: postgres:16-alpine
-    env_file:
-      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-localbook}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-localbook}
+      POSTGRES_DB: ${POSTGRES_DB:-localbook}
     ports:
       - '${POSTGRES_PORT:-5432}:5432'
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U localbook -d localbook']
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}']
       interval: 5s
       timeout: 5s
       retries: 10
