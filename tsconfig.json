@@ -22,5 +22,9 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
   },
+  "watchOptions": {
+    "watchFile": "fixedPollingInterval",
+    "watchDirectory": "fixedPollingInterval"
+  },
   "exclude": ["node_modules", "dist", "drizzle.config.ts"]
 }

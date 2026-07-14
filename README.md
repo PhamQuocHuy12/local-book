@@ -23,7 +23,12 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+NestJS backend for LocalBook VN.
+
+Project documentation:
+
+- [Current backend structure and feature conventions](../docs/current-backend-structure.md)
+- [Backend V1 product requirements](../docs/localbook-vn-backend-v1-prd.md)
 
 ## Project setup
 
@@ -41,10 +46,11 @@ docker compose up --build
 
 The Compose stack starts two services:
 
-- `api`: NestJS backend, available at `http://localhost:3007`
+- `api`: runs pending Drizzle migrations, then starts the NestJS backend at `http://localhost:3007`
 - `postgres`: PostgreSQL 16, available to the API inside Docker at host `postgres`
 
 PostgreSQL data is stored in the named Docker volume `postgres-data`, so database files persist across container restarts.
+On each API container start, pending migrations are applied before NestJS starts. If migration fails, the API does not start.
 
 To run in the background:
 
@@ -82,9 +88,6 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
 
 # test coverage
 $ npm run test:cov

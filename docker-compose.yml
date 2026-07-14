@@ -1,6 +1,6 @@
 services:
   api:
-    command: npm run start:dev
+    command: sh -c "npm run db:migrate:docker && npm run start:dev"
     volumes:
       - .:/app
       - /app/node_modules

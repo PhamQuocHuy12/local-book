@@ -1,12 +1,14 @@
 import { pgEnum, pgTable, timestamp, uuid, varchar } from 'drizzle-orm/pg-core';
 
-export const tenantStatus = pgEnum('tenant_status', ['active', 'inactive']);
+export const businessStatus = pgEnum('business_status', ['active', 'inactive']);
 
-export const tenants = pgTable('tenants', {
+export const businesses = pgTable('businesses', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: varchar('name', { length: 120 }).notNull(),
   slug: varchar('slug', { length: 80 }).notNull().unique(),
-  status: tenantStatus('status').notNull().default('active'),
+  businessType: varchar('business_type', { length: 80 }).notNull(),
+  phone: varchar('phone', { length: 20 }).notNull(),
+  status: businessStatus('status').notNull().default('active'),
   createdAt: timestamp('created_at', { withTimezone: true })
     .notNull()
     .defaultNow(),

@@ -4,6 +4,7 @@ import Joi from 'joi';
 import configuration from './config/configuration';
 import { DbModule } from './db/db.module';
 import { HealthCheckModule } from './modules/health-check/health-check.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { HealthCheckModule } from './modules/health-check/health-check.module';
     }),
     DbModule,
     HealthCheckModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
