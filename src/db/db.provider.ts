@@ -2,6 +2,7 @@ import { Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
+import { relations } from './db.relations';
 import type { Database } from './db.types';
 
 export const PG_POOL = Symbol('PG_POOL');
@@ -23,7 +24,7 @@ export const databaseProviders: Provider[] = [
     provide: DB,
     inject: [PG_POOL],
     useFactory: (pool: Pool): Database => {
-      return drizzle({ client: pool });
+      return drizzle({ client: pool, relations });
     },
   },
 ];

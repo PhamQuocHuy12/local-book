@@ -33,3 +33,15 @@ export class RegisterDto {
   @MaxLength(20)
   phone?: string;
 }
+
+export class LoginDto {
+  @Transform(trim)
+  @IsEmail()
+  @MaxLength(120)
+  email!: string;
+
+  @IsString()
+  @MinLength(1)
+  @MaxLength(128)
+  password!: string;
+}
